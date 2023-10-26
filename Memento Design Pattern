@@ -1,0 +1,59 @@
+package designPatterns;
+import java.util.*;
+
+/*According to my understanding,
+ *  user needs mementos which are only created through a mediator, 
+ *  the state is changed in the originator and provided to a memento 
+ *  base don a request
+ */
+
+
+
+
+public class mementoDesignPattern {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		MementoSource source = new MementoSource();
+		
+		source.setMemento(5);
+		List<Memento> lst = new ArrayList<Memento>();
+		
+		for(int i = 0 ; i < 99; i++) {
+			source.setMemento(i);
+			lst.add(source.createMemento());
+		}
+		
+		System.out.println(lst);
+	}
+}
+class MementoSource{
+	State state;
+	
+	public Memento createMemento() {
+		return new Memento(state);
+	}
+	
+	public void setMemento(int state) {
+		this.state = new State(state);
+	}
+}
+
+class State{
+	int a;
+	State(int a){
+		this.a = a;
+	}
+}
+class Memento{
+	State state;
+	Memento(State state){
+		this.state = state;
+	}
+	public void setState(State state){
+		this.state = state;
+	}
+	
+	public State getState() {
+		return state;
+	}
+}
